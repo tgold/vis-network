@@ -36,7 +36,19 @@
 
       // create an array with edges
       var edges = new vis.DataSet([
-        { from: 1, to: 3, label: "edge", labelFrom: "from", labelTo: "to" },
+        {
+          from: 1,
+          to: 3,
+          label: "edge",
+          arrows: {
+            to: {
+              enabled: true,
+              type: "diamond",
+            },
+          },
+          labelFrom: "from",
+          labelTo: "to",
+        },
         { from: 1, to: 2, label: "edge", labelFrom: "from", labelTo: "to" },
         { from: 2, to: 4, label: "edge", labelFrom: "from", labelTo: "to" },
         { from: 5, to: 5, label: "edge", labelFrom: "from", labelTo: "to" },
