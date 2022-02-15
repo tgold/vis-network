@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Network | Basic usage</title>
+
+    <script type="text/javascript" src="../../../dist/vis-network.js"></script>
+    <link
+      href="../../../dist/dist/vis-network.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style type="text/css">
+      #mynetwork {
+        width: 600px;
+        height: 400px;
+        border: 1px solid lightgray;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Playing with edge labels.</p>
+
+    <div id="mynetwork"></div>
+
+    <script type="text/javascript">
+      var network;
+      var nodes = new vis.DataSet([
+        {
+          id: "E1",
+          label: "one",
+          color: {
+            background: "#99fdfc",
+            highlight: {
+              background: "#c5e789",
+              border: "#666666",
+            },
+          },
+        },
+        {
+          id: "E2",
+          label: "two",
+          color: {
+            background: "#99fdfc",
+            highlight: {
+              background: "#c5e789",
+              border: "#666666",
+            },
+          },
+        },
+      ]);
+      var edges = new vis.DataSet([
+        {
+          id: "D1",
+          from: "E1",
+          to: "E2",
+          label: "ONe to Two",
+          labelTo: "ToTwo\n1..N",
+          labelFrom: "ToOne\n0..1",
+          color: {
+            color: "#000000",
+            highlight: "#CCCCCC",
+          },
+        },
+      ]);
+      var container = document.getElementById("mynetwork");
+      var data = {
+        nodes: nodes,
+        edges: edges,
+      };
+      var options = {
+        nodes: {
+          shape: "box",
+          margin: 12,
+          physics: false,
+        },
+        edges: {
+          physics: false,
+          endPointOffset: {
+            from: -10,
+            to: -10,
+          },
+        },
+      };
+      network = new vis.Network(container, data, options);
+      network.fit();
+    </script>
+  </body>
+</html>

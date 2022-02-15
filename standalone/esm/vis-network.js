@@ -5,7 +5,7 @@
  * A dynamic, browser-based visualization library.
  *
  * @version 0.0.0-no-version
- * @date    2022-02-11T12:07:56.216Z
+ * @date    2022-02-15T14:17:48.767Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -27249,8 +27249,7 @@ var Edge = /*#__PURE__*/function () {
 
       var viaNode = this.edgeType.getViaNode(); // draw line and label
 
-      this.edgeType.drawLine(ctx, values, this.selected, this.hover, viaNode);
-      this.drawLabel(ctx, viaNode);
+      this.edgeType.drawLine(ctx, values, this.selected, this.hover, viaNode); //this.drawLabel(ctx, viaNode);
     }
     /**
      * Redraw arrows
@@ -32478,6 +32477,13 @@ var CanvasRenderer = /*#__PURE__*/function () {
           if ((this.dragging === false || this.dragging === true && this.options.hideEdgesOnDrag === false) && (this.zooming === false || this.zooming === true && this.options.hideEdgesOnZoom === false)) {
             this._drawArrows(ctx);
           }
+        } //draw labels of edges on top of everything
+
+
+        if (hidden === false) {
+          if ((this.dragging === false || this.dragging === true && this.options.hideEdgesOnDrag === false) && (this.zooming === false || this.zooming === true && this.options.hideEdgesOnZoom === false)) {
+            this._drawEdgeLabels(ctx);
+          }
         }
 
         if (drawLater.drawExternalLabels != null) {
@@ -32673,6 +32679,27 @@ var CanvasRenderer = /*#__PURE__*/function () {
 
         if (edge.connected === true) {
           edge.drawArrows(ctx);
+        }
+      }
+    }
+    /**
+     * Redraw all edge labels
+     *
+     * @param {CanvasRenderingContext2D} ctx  2D context of a HTML canvas
+     * @private
+     */
+
+  }, {
+    key: "_drawEdgeLabels",
+    value: function _drawEdgeLabels(ctx) {
+      var edges = this.body.edges;
+      var edgeIndices = this.body.edgeIndices;
+
+      for (var i = 0; i < edgeIndices.length; i++) {
+        var edge = edges[edgeIndices[i]];
+
+        if (edge.connected === true) {
+          edge.drawLabel(ctx, edge.edgeType.getViaNode());
         }
       }
     }
